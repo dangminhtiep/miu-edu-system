@@ -3,6 +3,7 @@ import type {
   ProviderGradingResponse,
 } from "@/lib/homework-ai/types";
 import { AiGradingProvider } from "@/lib/homework-ai/providers/base";
+import { normalizeGradingResult } from "@/lib/homework-ai/grading";
 
 interface GeminiTextPart {
   text: string;
@@ -197,7 +198,7 @@ export class GeminiGradingProvider implements AiGradingProvider {
       provider: "gemini",
       model: DEFAULT_MODEL,
       promptVersion: PROMPT_VERSION,
-      result: parsed,
+      result: normalizeGradingResult(parsed, input.assignment),
       rawResponse: payload,
     };
   }

@@ -3,6 +3,7 @@ import type {
   ProviderGradingResponse,
 } from "@/lib/homework-ai/types";
 import { AiGradingProvider } from "@/lib/homework-ai/providers/base";
+import { normalizeGradingResult } from "@/lib/homework-ai/grading";
 
 export class MockGradingProvider implements AiGradingProvider {
   readonly id = "mock";
@@ -16,7 +17,7 @@ export class MockGradingProvider implements AiGradingProvider {
       provider: "mock",
       model: "mock-grader-v2",
       promptVersion: "homework-image-v2",
-      result: {
+      result: normalizeGradingResult({
         totalScore,
         maxScore: input.assignment.maxScore,
         confidence: "medium",
@@ -44,7 +45,7 @@ export class MockGradingProvider implements AiGradingProvider {
           comment:
             "Ket qua dang duoc tao boi che do mock de kiem thu giao dien va workflow.",
         })),
-      },
+      }, input.assignment),
       rawResponse: {
         mode: "mock",
       },

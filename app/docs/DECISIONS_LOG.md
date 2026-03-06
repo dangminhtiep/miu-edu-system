@@ -1,6 +1,6 @@
 # DECISIONS LOG - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Purpose: store finalized app decisions so future sessions do not depend on chat memory
 
 ## 2026-03-06
@@ -243,3 +243,92 @@ Locked safety rules:
 - do not invent unreadable content
 - explicitly state image quality or ambiguity problems
 - set `needsHumanReview` when confidence is low or evidence is incomplete
+
+## 2026-03-06
+### Decision: engineering output across sessions must follow one locked repo standard
+Reason:
+- cross-session code generation will drift if language, naming, file placement, and typing rules remain implicit
+- drift creates avoidable cleanup cost and slows later implementation
+
+Consequence:
+- `app/docs/ENGINEERING_STANDARDS.md` becomes the repo-standard reference for implementation consistency
+- new code should default to TypeScript, Next.js App Router patterns, strict typing, ASCII identifiers, and thin route handlers with domain logic in `lib/`
+- future changes to engineering standards must be recorded in docs before they are treated as active
+
+## 2026-03-07
+### Decision: MIU Web architecture must be scale-ready and configuration-driven for changeable business rules
+Reason:
+- MIU Web is intended to grow into a multi-role operating system, so hard-coding today’s small rules into page logic would create expensive rewrites later
+- operational rules such as submission limits, review thresholds, storage backends, and provider selection are likely to change over time
+
+Consequence:
+- the system must separate:
+  - stable domain lifecycle
+  - configurable policy
+  - infrastructure adapters
+- business rules that are likely to change should be modeled as settings/policy data rather than scattered constants inside UI or route handlers
+- future production architecture should assume:
+  - metadata in a database
+  - files in object storage
+  - AI grading in async jobs
+  - stateless app nodes
+  - auditability and idempotent processing for important actions
+- the Homework AI slice must be evolved toward:
+  - assignment/submission domain records
+  - policy/config layer
+  - provider adapter layer
+  - background grading pipeline
+
+## 2026-03-07
+### Decision: provider grading output must be normalized by app-owned logic before persistence
+Reason:
+- provider responses can drift in shape, completeness, and scoring consistency
+- the app must own the grading contract instead of trusting raw provider output as domain truth
+
+Consequence:
+- provider adapters may keep raw payloads for debugging, but persisted grading results must first pass through app-owned normalization
+- criterion mapping, review flags, fallback text, and score stabilization must be controlled by app logic
+- future providers can be added without changing the stored grading contract
+
+## 2026-03-07
+### Decision: Homework AI must track grading jobs as first-class records even before a real queue exists
+Reason:
+- async grading is the expected long-term production direction
+- if the domain only stores submissions, later migration to workers/queues becomes messier and less traceable
+
+Consequence:
+- each submission must create a grading job record with its own lifecycle
+- current inline grading can still run inside the request, but it should update job state as if a future worker were processing it
+- future queue/worker adoption can attach to the existing job model instead of redesigning the homework domain
+
+## 2026-03-07
+### Decision: Homework AI domain services must depend on repository and storage adapters, not direct file-store calls
+Reason:
+- the current file-backed persistence is only an MVP bridge
+- direct coupling between domain services and local file/json storage would slow future migration to database and object storage
+
+Consequence:
+- domain services should call app-owned repository/storage interfaces
+- the current implementation can keep file-backed adapters underneath those interfaces
+- future persistence changes should mostly replace adapters rather than rewriting homework domain logic
+
+## 2026-03-07
+### Decision: Homework AI repository should evolve toward domain-oriented methods, not only snapshot-level read/write
+Reason:
+- database-backed persistence later will be cleaner if repository contracts already reflect domain behaviors
+- domain services become easier to understand and harder to accidentally couple to storage shape
+
+Consequence:
+- repository methods should increasingly describe domain actions such as finding assignments, listing submissions, updating grading jobs, and handling complaints/unlocks
+- raw snapshot read/write may remain temporarily for bridge code, but should no longer be the main integration style for new work
+
+## 2026-03-07
+### Decision: future-ready architecture must be balanced with current-phase delivery and beginner-friendly explanation
+Reason:
+- the repo needs to stay extensible without drifting away from the immediate Homework AI goal
+- technical prioritization and explanation clarity matter because the user is still building foundational understanding
+
+Consequence:
+- prefer changes that directly strengthen the current Homework AI slice while also reducing the next likely architectural risk
+- postpone deeper infrastructure work when it does not materially improve the current slice
+- important technical recommendations should be explained in plain Vietnamese with concise rationale and postponed alternatives called out explicitly

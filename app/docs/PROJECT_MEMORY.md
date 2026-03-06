@@ -1,6 +1,6 @@
 # PROJECT MEMORY - MIU WEB
 
-Cap nhat: 2026-03-06
+Cap nhat: 2026-03-07
 Muc tieu: bo nho tong hop cho kien truc, pham vi san pham, va trang thai trien khai cua MIU Web.
 
 ## 1) Cach dung file nay
@@ -8,6 +8,7 @@ Muc tieu: bo nho tong hop cho kien truc, pham vi san pham, va trang thai trien k
 - Cac file chi tiet duoc tach rieng trong `app/docs/`.
 - Quy tac cap nhat docs duoc luu tai `DOC_MAINTENANCE_PROTOCOL.md`.
 - Quy uoc giao tiep nguoi-AI duoc luu tai `COLLABORATION_CONVENTIONS.md`.
+- Quy uoc ky thuat lien phien duoc luu tai `ENGINEERING_STANDARDS.md`.
 
 ## 2) Muc tieu cua MIU Web
 - Lam giao dien van hanh cho he sinh thai MIU.
@@ -61,7 +62,16 @@ Mo rong tu master doc:
 ## 5) Nguyen tac cho repo nay
 - Khong duoc nham `demo UI (giao dien mau)` voi `implemented system behavior (hanh vi he thong da trien khai)`.
 - Moi thay doi ve huong kien truc / module / role / data model phai duoc ghi lai trong docs.
+- Moi thay doi ve chuan ky thuat code lien phien cung phai duoc ghi lai trong docs.
 - Khong dua tri nho du an vao chat; repo docs moi la bo nho chuan.
+- Cac rule nghiep vu co kha nang doi trong tuong lai nen duoc uu tien thiet ke theo huong `configuration-driven (dieu khien bang cau hinh)`, khong hard-code rai rac trong UI va route.
+- He thong phai san sang cho mo rong tai va thay doi ha tang ve sau, ngay ca khi phase hien tai van trien khai gon nhe.
+- Khong duoc `over-engineer (thiet ke qua tay)` den muc lam cham hoac lech muc tieu truoc mat.
+- Moi quyet dinh ky thuat phai can bang giua:
+  - `future-ready (san sang tuong lai)`
+  - `current-phase focus (trong tam giai doan hien tai)`
+- Uu tien truoc phai bam vao lat cat `AI homework grading` va cac nen tang that su can cho no.
+- Khi tu van, can giai thich ro theo ngon ngu de hieu cho nguoi moi, khong mac dinh rang nguoi dung da biet thuat ngu.
 
 ## 6) Uu tien gan
 - khoa bo nho ngoai cho repo nay
@@ -113,6 +123,10 @@ Trong do:
   - review flag
 - Assignment can later include image or PDF attachments as the official prompt material.
 - `LaTeX (ngon ngu danh may toan hoc)` conversion is not a current phase-1 priority.
+- Kien truc da chot them huong:
+  - `domain lifecycle (vong doi nghiep vu)` la phan on dinh
+  - `policy/settings (chinh sach/cau hinh)` la phan co the bien doi
+  - `infrastructure adapters (lop ket noi ha tang)` la phan co the thay the
 - Student submission policy currently locked:
   - one normal submission only
   - late submission allowed but flagged

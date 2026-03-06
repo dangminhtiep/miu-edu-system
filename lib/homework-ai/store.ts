@@ -10,6 +10,7 @@ const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads", "homework-ai");
 const EMPTY_DB: HomeworkDatabase = {
   assignments: [],
   submissions: [],
+  gradingJobs: [],
   complaints: [],
   unlocks: [],
 };
@@ -23,6 +24,7 @@ function normalizeDatabase(data: Partial<HomeworkDatabase> | undefined): Homewor
   return {
     assignments: data?.assignments ?? [],
     submissions: data?.submissions ?? [],
+    gradingJobs: data?.gradingJobs ?? [],
     complaints: data?.complaints ?? [],
     unlocks: data?.unlocks ?? [],
   };

@@ -1,6 +1,6 @@
 # SYSTEM ARCHITECTURE - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Status: draft foundation architecture
 
 ## 1. Current Technical Stack
@@ -54,6 +54,48 @@ The web app is expected to integrate later with:
 - No data ownership boundaries are defined yet.
 - No route/module structure for long-term scale is locked yet.
 
+## 6A. Locked Architecture Direction For Scale And Change
+The system should be designed around 3 layers of change:
+- `stable domain lifecycle (vong doi nghiep vu on dinh)`
+  - assignments
+  - submissions
+  - grading jobs
+  - grading results
+  - complaints
+  - review actions
+- `configuration/policy layer (lop cau hinh/chinh sach)`
+  - submission limits
+  - late handling
+  - review thresholds
+  - attachment limits
+  - provider selection
+  - feature toggles
+- `infrastructure adapter layer (lop ket noi ha tang)`
+  - database adapter
+  - object storage adapter
+  - AI provider adapter
+  - grading executor adapter
+  - queue/worker adapter
+  - notification adapter
+
+Rules:
+- stable lifecycle rules should not depend on one specific provider, storage backend, or temporary UI shape
+- changeable business rules should not be scattered as magic constants across pages and route handlers
+- infrastructure choices must be replaceable without redesigning the homework domain
+
+## 6B. Scale-Ready Production Direction
+The current prototype is intentionally small, but production direction should assume:
+- stateless web application nodes
+- metadata stored in a real database
+- uploaded files stored in object storage rather than local disk
+- AI grading executed through async jobs/workers rather than long synchronous request cycles
+- idempotent submission/grading actions where retry may happen
+- audit log coverage for important teacher/student actions
+- observability for queue failures, provider failures, and review rates
+
+This does not mean building all of it immediately.
+It means current design should avoid blocking that future path.
+
 ## 7. AI Homework Integration Direction
 - The first AI workflow is image-based homework grading.
 - Gemini is the first intended provider, but it must not be wired directly into page logic or domain logic.
@@ -72,6 +114,7 @@ The web app is expected to integrate later with:
   - normalized result schema
   - review flags
   - future teacher override
+  - provider result normalization before persistence
 
 Recommended homework slice split:
 - teacher flow:
@@ -90,7 +133,24 @@ Recommended homework slice split:
   - resubmit only if teacher unlocks one extra attempt after complaint
 - AI flow:
   - receive assignment context plus student submission
+  - create grading job record
   - return normalized grading result
+
+Recommended policy/config split for homework:
+- stable in domain:
+  - assignment entity
+  - submission entity
+  - complaint entity
+  - unlock entity
+  - grading result entity
+- configurable over time:
+  - max attempts
+  - late policy
+  - accepted file types and size/page limits
+  - review threshold
+  - active AI provider
+  - complaint categories
+  - prompt version selection
 
 Student-facing AI response contract should contain:
 - total score
@@ -113,4 +173,29 @@ Student-facing AI language rules should contain:
   - local file persistence under `public/uploads/homework-ai/`
   - file-backed metadata persistence under `data/homework-ai/database.json`
   - a provider registry that can switch between `gemini` and `mock`
+  - app-owned policy and grading normalization modules inside `lib/homework-ai/`
+  - grading job records even though execution is still inline
 - This is a bridge architecture for speed, not the final production backend.
+
+## 9. Architecture Advice For Current Homework App Work
+To keep the current slice extensible, near-term implementation should move toward:
+- explicit domain services for assignments, submissions, complaints, and unlocks
+- a policy/settings module that owns changeable homework rules
+- storage/provider interfaces that hide local-file MVP details
+- a grading job concept even if the first implementation still executes inline
+- persistence models that preserve provider metadata, review state, and future teacher override
+- an app-owned normalization layer that validates and stabilizes provider grading output before storing it
+
+Current implementation has now started this split with separate service files for:
+- assignment creation
+- submission and grading
+- grading job lifecycle
+- complaint and unlock handling
+- overview aggregation
+
+Current implementation has also started the infrastructure boundary with:
+- repository adapter for metadata persistence
+- file storage adapter for uploaded files
+- file-backed implementations used underneath those adapters for the current MVP
+- repository methods increasingly follow domain behavior such as finding assignments, saving submissions, updating jobs, and resolving complaints
+- grading executor abstraction so current inline execution can later be replaced by queued execution with smaller domain impact

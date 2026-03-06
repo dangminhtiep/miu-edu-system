@@ -1,6 +1,6 @@
 # ROADMAP - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Status: active planning roadmap
 
 ## Phase 1. External Memory Lock
@@ -31,6 +31,7 @@ Deliverables:
 - ownership boundaries
 - API/data flow assumptions
 - state/lifecycle assumptions
+- settings/policy boundary for changeable business rules
 
 Status:
 - next priority for the homework grading slice
@@ -87,6 +88,8 @@ Goal:
 
 Deliverables:
 - database connection plan
+- object storage plan
+- async job / queue plan
 - notification integration plan
 - miu-bank integration plan
 

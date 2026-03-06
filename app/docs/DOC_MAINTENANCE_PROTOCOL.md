@@ -17,6 +17,11 @@ Update:
 Update:
 - `app/docs/MODULE_STATUS.md`
 
+### When engineering standards or coding conventions change
+Update:
+- `app/docs/ENGINEERING_STANDARDS.md`
+- `app/docs/DECISIONS_LOG.md`
+
 ### When system/module architecture changes
 Update:
 - `app/docs/SYSTEM_ARCHITECTURE.md`
@@ -30,13 +35,14 @@ Update:
   1. `PROJECT_OVERVIEW.md`
   2. `PROJECT_MEMORY.md`
   3. `DECISIONS_LOG.md`
-  4. `MODULE_STATUS.md`
-  5. `OPEN_QUESTIONS.md`
-  6. `RISK_REGISTER.md`
-  7. `SESSION_HANDOFF.md`
-  8. this file
-  9. `COLLABORATION_CONVENTIONS.md`
-  10. `WHEN_TO_START_NEW_SESSION.md`
+  4. `ENGINEERING_STANDARDS.md`
+  5. `MODULE_STATUS.md`
+  6. `OPEN_QUESTIONS.md`
+  7. `RISK_REGISTER.md`
+  8. `SESSION_HANDOFF.md`
+  9. this file
+  10. `COLLABORATION_CONVENTIONS.md`
+  11. `WHEN_TO_START_NEW_SESSION.md`
 - Before ending a meaningful session, update the affected docs before closing the task.
 - Before ending a meaningful session, review `SESSION_CLOSEOUT_TEMPLATE.md` as a mandatory closeout pass.
 - Use `WHEN_TO_START_NEW_SESSION.md` to decide whether the current chat should be closed and resumed in a fresh session.

@@ -7,7 +7,14 @@ export type SubmissionStatus =
   | "needs_review"
   | "failed";
 
+export type GradingJobStatus =
+  | "queued"
+  | "processing"
+  | "completed"
+  | "failed";
+
 export type ComplaintStatus = "open" | "unlocked" | "resolved";
+export type HomeworkComplaintCategory = "grading_issue" | "wrong_submission";
 
 export type ConfidenceLevel = "high" | "medium" | "low";
 
@@ -85,6 +92,20 @@ export interface ProviderGradingResponse {
   rawResponse: unknown;
 }
 
+export interface HomeworkGradingJobRecord {
+  id: string;
+  submissionId: string;
+  assignmentId: string;
+  provider: AiProviderId;
+  status: GradingJobStatus;
+  attempts: number;
+  queuedAt: string;
+  startedAt?: string;
+  completedAt?: string;
+  updatedAt: string;
+  errorMessage?: string;
+}
+
 export interface HomeworkSubmissionRecord {
   id: string;
   assignmentId: string;
@@ -110,7 +131,7 @@ export interface HomeworkComplaintRecord {
   submissionId: string;
   studentName: string;
   classCode: string;
-  category: "grading_issue" | "wrong_submission";
+  category: HomeworkComplaintCategory;
   message: string;
   status: ComplaintStatus;
   createdAt: string;
@@ -130,6 +151,7 @@ export interface HomeworkUnlockRecord {
 export interface HomeworkDatabase {
   assignments: HomeworkAssignmentRecord[];
   submissions: HomeworkSubmissionRecord[];
+  gradingJobs: HomeworkGradingJobRecord[];
   complaints: HomeworkComplaintRecord[];
   unlocks: HomeworkUnlockRecord[];
 }

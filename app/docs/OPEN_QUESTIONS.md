@@ -1,6 +1,6 @@
 # OPEN QUESTIONS - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Purpose: store unresolved product and architecture questions explicitly
 
 ## 1. Role Model
@@ -38,6 +38,7 @@ Purpose: store unresolved product and architecture questions explicitly
 - What contract should the `AI provider adapter` expose so Gemini can later be replaced?
 - Which fields are mandatory in normalized grading results regardless of provider?
 - Which provider-specific raw payloads should still be retained for debugging?
+- How strict should normalization be when provider total score conflicts with rubric-level scores?
 
 ## 6. Authentication
 - Which auth flow should be used?
@@ -69,6 +70,7 @@ Purpose: store unresolved product and architecture questions explicitly
   - grading job
   - grading result
   - review override?
+- Which retry policy should apply to failed grading jobs once a real queue exists?
 
 ## 7A. Assignment Authoring Scope
 - In the first usable version, what exactly does the teacher need when creating homework?
@@ -110,3 +112,17 @@ Purpose: store unresolved product and architecture questions explicitly
 - Which workflows belong to HQ only?
 - Which workflows belong to branch managers?
 - Which data can branches override vs only view?
+
+## 9. Configuration Boundary
+- Which homework rules should become configurable in phase 1 versus remain fixed code for now?
+- What settings scopes are needed first:
+  - global?
+  - branch?
+  - class?
+  - assignment?
+- Which items must be policy data rather than hard-coded constants:
+  - submission attempt limits?
+  - review thresholds?
+  - file size/page limits?
+  - provider selection?
+  - complaint categories?

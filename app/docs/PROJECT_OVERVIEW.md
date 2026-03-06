@@ -1,6 +1,6 @@
 # PROJECT OVERVIEW - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Status: foundation stage with first operational slice selected
 Purpose: external memory for the MIU Web application
 
@@ -44,6 +44,22 @@ Additional strategic principle now locked:
 - The master document is a `vision document (tai lieu tam nhin)`, not yet a final `implementation specification (dac ta trien khai)`.
 - Therefore the project must be broken into implementation phases before large feature work starts.
 
+Additional strategic principle now locked:
+- MIU Web should prefer `configuration-driven (dieu khien bang cau hinh)` design for rules that may change across phases, branches, or modules.
+- The system should distinguish:
+  - stable domain lifecycle
+  - changeable policy/configuration
+  - replaceable infrastructure adapters
+- Near-term implementation must avoid hard-coding temporary MVP rules so deeply that later scale or policy changes require full rewrites.
+
+Additional strategic principle now locked:
+- MIU Web should avoid `over-engineering (thiet ke qua tay)` that slows the currently locked operational slice.
+- Technical work must be prioritized by:
+  - current phase goals
+  - immediate product value
+  - architectural leverage for the next likely step
+- Future-ready structure is required, but it must not become an excuse to drift away from the current Homework AI goal.
+
 ## 4. What Exists Right Now
 - `app/layout.tsx`
   - app shell with sidebar and main content area
@@ -81,6 +97,7 @@ Additional strategic principle now locked:
 5. Define the initial `data architecture (kien truc du lieu)`.
 6. Replace template pages with intentional product-facing structure.
 7. Separate `phase 1 must-have (bat buoc giai doan 1)` from long-term strategic layers.
+8. Define which rules belong in code now and which should become configurable settings/policies.
 
 ## 7. Recommended System Layers
 To avoid scope overload, MIU Web should be viewed as 4 layers:
@@ -135,9 +152,10 @@ Read these first in order:
 1. `app/docs/PROJECT_OVERVIEW.md`
 2. `app/docs/PROJECT_MEMORY.md`
 3. `app/docs/DECISIONS_LOG.md`
-4. `app/docs/MODULE_STATUS.md`
-5. `app/docs/OPEN_QUESTIONS.md`
-6. `app/docs/RISK_REGISTER.md`
-7. `app/docs/SESSION_HANDOFF.md`
-8. `app/docs/DOC_MAINTENANCE_PROTOCOL.md`
-9. `app/docs/COLLABORATION_CONVENTIONS.md`
+4. `app/docs/ENGINEERING_STANDARDS.md`
+5. `app/docs/MODULE_STATUS.md`
+6. `app/docs/OPEN_QUESTIONS.md`
+7. `app/docs/RISK_REGISTER.md`
+8. `app/docs/SESSION_HANDOFF.md`
+9. `app/docs/DOC_MAINTENANCE_PROTOCOL.md`
+10. `app/docs/COLLABORATION_CONVENTIONS.md`

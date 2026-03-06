@@ -41,14 +41,14 @@ The AI should re-read:
 1. `PROJECT_OVERVIEW.md`
 2. `PROJECT_MEMORY.md`
 3. `DECISIONS_LOG.md`
-4. `MODULE_STATUS.md`
-5. `OPEN_QUESTIONS.md`
-6. `RISK_REGISTER.md`
-7. `SESSION_HANDOFF.md`
-8. `DOC_MAINTENANCE_PROTOCOL.md`
-9. `COLLABORATION_CONVENTIONS.md`
-10. this file
+4. `ENGINEERING_STANDARDS.md`
+5. `MODULE_STATUS.md`
+6. `OPEN_QUESTIONS.md`
+7. `RISK_REGISTER.md`
+8. `SESSION_HANDOFF.md`
+9. `DOC_MAINTENANCE_PROTOCOL.md`
+10. `COLLABORATION_CONVENTIONS.md`
+11. this file
 
 ## 5. Non-Negotiable Principle
 - A fresh session is safe only when continuity is in docs, not only in chat.
-

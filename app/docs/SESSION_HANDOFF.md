@@ -1,6 +1,6 @@
 # SESSION HANDOFF - MIU WEB
 
-Last updated: 2026-03-06
+Last updated: 2026-03-07
 Purpose: concise current handoff note for the next working session
 
 ## 1. Current Phase
@@ -10,6 +10,8 @@ Purpose: concise current handoff note for the next working session
 ## 2. What Has Been Locked
 - Repository docs are the canonical memory.
 - External-memory docs set has been created in `app/docs/`.
+- Engineering implementation consistency is now governed by `app/docs/ENGINEERING_STANDARDS.md`.
+- Architecture direction is now also locked toward `scale-ready (san sang mo rong tai)` and `configuration-driven (dieu khien bang cau hinh)` design for changeable business rules.
 - The master document is now understood as a `vision document (tai lieu tam nhin)`, not yet a final implementation spec.
 - The system should be broken into 4 layers:
   - Foundation OS
@@ -42,6 +44,16 @@ Purpose: concise current handoff note for the next working session
 - homework AI grading workspace page
 - homework AI submissions API route
 - local file-backed homework submission store
+- initial Homework AI policy module for configurable rules
+- app-owned grading normalization layer for provider outputs
+- grading job records for async-ready lifecycle tracking
+- split domain services for assignment, submission, grading job, complaint, and overview flows
+- repository and file-storage adapters now sit between domain services and the current file-backed infrastructure
+- repository contract now includes domain-oriented methods rather than only snapshot-style read/write
+- grading execution now goes through a dedicated executor layer instead of direct provider calls inside submission flow
+- teacher-facing workspace now shows a simple AI processing status panel for queued/processing/failed jobs
+- Homework AI workspace text/labels have been normalized back to readable Vietnamese so the screen is easier to review and extend
+- teacher-facing workspace now also shows a concrete AI job list with status, provider, timing, and error visibility
 - Gemini provider scaffold and mock provider fallback
 
 ## 4. What Is Not Yet Locked
@@ -54,12 +66,24 @@ Purpose: concise current handoff note for the next working session
 - HQ vs branch boundary model
 - storage strategy for homework images
 - normalized AI provider contract and review thresholds
+- settings/policy boundary for changeable homework rules
 
 ## 5. Current Implementation Note
 - A working prototype scaffold now exists for image-based AI homework grading.
 - It is intentionally `provider-agnostic` at the integration boundary.
 - Current persistence is local-file based for speed, not production-grade storage.
 - The next technical step is to decide the production persistence path and the exact normalized grading contract.
+- The next architecture step is to define the settings/policy boundary so current Homework AI rules do not stay hard-coded too deeply.
+- The first implementation step in that direction is now done: current Homework AI rules have started moving into a dedicated policy module.
+- Another implementation step is now done: provider grading results are normalized by app-owned logic before persistence instead of being trusted as raw provider output.
+- Another implementation step is now done: each submission now creates and updates a grading job record even though grading still runs inline today.
+- Another implementation step is now done: the old monolithic homework service has been split into smaller domain services while preserving current route imports through a thin facade.
+- Another implementation step is now done: domain services no longer call the file store directly; they now go through repository/storage adapters so future persistence migration is less invasive.
+- Another implementation step is now done: the repository layer now speaks more in domain actions like finding assignments, saving submissions, updating grading jobs, and working with complaints/unlocks.
+- Another implementation step is now done: submission flow no longer calls the provider directly; it now goes through a grading executor abstraction so queue/worker migration later is cleaner.
+- Another implementation step is now done: the Homework AI workspace now surfaces basic job-status visibility so operational state is less hidden from the teacher view.
+- Another implementation step is now done: the Homework AI workspace file has been rewritten in clean UTF-8 Vietnamese text while preserving the current workflow structure.
+- Another implementation step is now done: teachers can now inspect individual AI grading jobs instead of relying only on summary counters.
 - For local development, `Webpack` is currently safer than `Turbopack` in this environment because `Turbopack panic` errors were observed during testing.
 - The current prototype UI does not yet reflect the corrected business flow where teachers define assignments first and students only select assigned homework to submit.
 - Additional temporary product rules are now locked:
@@ -73,17 +97,21 @@ Purpose: concise current handoff note for the next working session
   - Gemini output must stay structured and follow MIU student-facing language rules
 - The prototype UI and APIs have now been refactored to reflect the teacher-first assignment flow and student complaint/unlock flow.
 - Local lint passed after refactor; full local runtime verification still depends on opening the app manually in the local environment.
+- Recommended next priority if Homework AI continues:
+  - teacher review action for `needs_review`
+  - then choose between real persistence strategy or broader UI/navigation cleanup based on immediate product need
 ## 6. Required Reading Next Session
 1. `PROJECT_OVERVIEW.md`
 2. `PROJECT_MEMORY.md`
 3. `DECISIONS_LOG.md`
-4. `MODULE_STATUS.md`
-5. `OPEN_QUESTIONS.md`
-6. `RISK_REGISTER.md`
-7. `DOC_MAINTENANCE_PROTOCOL.md`
-8. `COLLABORATION_CONVENTIONS.md`
-9. `WHEN_TO_START_NEW_SESSION.md`
-10. this file
+4. `ENGINEERING_STANDARDS.md`
+5. `MODULE_STATUS.md`
+6. `OPEN_QUESTIONS.md`
+7. `RISK_REGISTER.md`
+8. `DOC_MAINTENANCE_PROTOCOL.md`
+9. `COLLABORATION_CONVENTIONS.md`
+10. `WHEN_TO_START_NEW_SESSION.md`
+11. this file
 
 ## 7. End-of-Session Rule
 - If this repo's architecture understanding changes, docs must be updated before the session is considered complete.

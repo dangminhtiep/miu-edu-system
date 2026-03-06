@@ -11,6 +11,7 @@ export default async function HomeworkAiPage() {
       assignments={overview.assignments}
       submissions={overview.submissions}
       complaints={overview.complaints}
+      gradingJobs={overview.gradingJobs}
       metrics={overview.metrics}
       activeProvider={overview.activeProvider}
     />

@@ -12,6 +12,7 @@ Truoc khi lam viec, hay doc lai bo nho ngoai cua du an theo dung quy trinh:
 - PROJECT_MEMORY.md
 - DECISIONS_LOG.md
 - MODULE_STATUS.md
+- ENGINEERING_STANDARDS.md
 - OPEN_QUESTIONS.md
 - RISK_REGISTER.md
 - SESSION_HANDOFF.md
@@ -26,6 +27,8 @@ Sau khi doc xong:
 - viec tiep theo nen lam la gi
 2. chi ro neu co bat ky diem nao mo hoac co nguy co lech ngu canh
 3. trong phien nay, neu co quyet dinh moi thi cap nhat docs dung file theo protocol truoc khi ket thuc phien
+
+Lưu ý trao đổi với tôi bằng Tiếng Việt có dấu
 ```
 
 ## Usage Rule
