@@ -1,7 +1,7 @@
 # PROJECT OVERVIEW - MIU WEB
 
 Last updated: 2026-03-06
-Status: foundation stage
+Status: foundation stage with first operational slice selected
 Purpose: external memory for the MIU Web application
 
 ## 1. North Star
@@ -53,6 +53,12 @@ Additional strategic principle now locked:
   - server page fetching from local API
 - `app/api/students/route.ts`
   - mock JSON response
+- `app/homework-ai/page.tsx`
+  - early AI homework grading workspace
+- `app/api/homework-ai/submissions/route.ts`
+  - submission and grading API prototype
+- `lib/homework-ai/*`
+  - provider-agnostic homework grading scaffold
 - `app/docs/SYSTEM_STATE.md`
   - very early project state note
 
@@ -69,11 +75,12 @@ Additional strategic principle now locked:
 
 ## 6. Immediate Priorities
 1. Lock the external-memory documentation set for this repo.
-2. Define the intended system modules.
-3. Define the `role model (mo hinh vai tro)`.
-4. Define the initial `data architecture (kien truc du lieu)`.
-5. Replace template pages with intentional product-facing structure.
-6. Separate `phase 1 must-have (bat buoc giai doan 1)` from long-term strategic layers.
+2. Design the first operational slice: `AI homework grading (cham bai tap ve nha bang AI)` for current students.
+3. Define the intended system modules.
+4. Define the `role model (mo hinh vai tro)`.
+5. Define the initial `data architecture (kien truc du lieu)`.
+6. Replace template pages with intentional product-facing structure.
+7. Separate `phase 1 must-have (bat buoc giai doan 1)` from long-term strategic layers.
 
 ## 7. Recommended System Layers
 To avoid scope overload, MIU Web should be viewed as 4 layers:
@@ -112,7 +119,18 @@ To avoid scope overload, MIU Web should be viewed as 4 layers:
   - planned modules
   - actually implemented features
 
-## 9. Source of Truth for Future Sessions
+## 9. First Operational Slice Now Chosen
+- The first real workflow to build can be `AI homework grading` because it serves an immediate operational need.
+- The first submission mode should be student-submitted images of homework.
+- Gemini is the first intended AI provider because it has shown good early grading quality in manual testing.
+- However, the system must be designed so the AI provider can be replaced later without changing the core homework workflow.
+- This means the app should separate:
+  - homework domain data
+  - submission storage
+  - AI provider adapter
+  - grading result normalization
+  - future human review / override
+## 10. Source of Truth for Future Sessions
 Read these first in order:
 1. `app/docs/PROJECT_OVERVIEW.md`
 2. `app/docs/PROJECT_MEMORY.md`

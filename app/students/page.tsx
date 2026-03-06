@@ -1,16 +1,17 @@
-async function getStudents() {
-  const res = await fetch("http://localhost:3000/api/students");
-  return res.json();
-}
+import { mockStudents } from "@/lib/students/mock";
 
 export default async function Students() {
-  const students = await getStudents();
+  const students = mockStudents as Array<{
+    id: number;
+    name: string;
+    grade: string;
+  }>;
 
   return (
     <div>
       <h1>Danh sách học sinh</h1>
       <ul>
-        {students.map((student: any) => (
+        {students.map((student) => (
           <li key={student.id}>
             {student.name} - {student.grade}
           </li>

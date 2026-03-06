@@ -20,7 +20,7 @@ Deliverables:
 - role-based visibility assumptions
 
 Status:
-- next priority
+- active, but now running in parallel with the first operational slice definition
 
 ## Phase 3. Core Entity and Data Architecture
 Goal:
@@ -33,7 +33,7 @@ Deliverables:
 - state/lifecycle assumptions
 
 Status:
-- not started
+- next priority for the homework grading slice
 
 ## Phase 4. Foundation OS
 Goal:
@@ -63,6 +63,11 @@ Deliverables:
 
 Status:
 - not started
+
+Immediate wedge inside this phase:
+- `AI homework grading` is the first operational slice to implement
+- first target submission mode is student-submitted images
+- first AI provider is Gemini, but integration must remain provider-agnostic
 
 ## Phase 6. Replace Placeholder UI
 Goal:

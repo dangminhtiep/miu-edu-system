@@ -46,3 +46,4 @@ Update:
 - Chat is temporary.
 - Repository docs are canonical memory.
 - If docs and chat diverge, either update the docs or explicitly record the unresolved gap in `OPEN_QUESTIONS.md`.
+- This rule also applies to collaboration conventions and small operating rules, not only large product or architecture decisions.

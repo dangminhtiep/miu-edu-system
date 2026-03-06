@@ -48,6 +48,9 @@ Mo rong tu master doc:
   - dashboard page
   - students page
   - mock API route cho students
+  - workspace chot `AI homework grading` ban dau
+  - API route nop bai va cham bai ban dau
+  - bo khung provider `gemini` va `mock`
 - Chua co:
   - database
   - authentication
@@ -62,6 +65,7 @@ Mo rong tu master doc:
 
 ## 6) Uu tien gan
 - khoa bo nho ngoai cho repo nay
+- chot lat cat van hanh dau tien la `AI homework grading (cham bai tap ve nha bang AI)`
 - xac dinh module scope
 - xac dinh role model
 - xac dinh data architecture
@@ -88,7 +92,45 @@ Trong do:
 - settings engine co ban
 - audit log co ban
 
-## 9) Cac file can doc dau phien
+## 9) Huong da chot cho lat cat dau tien
+- Co the xay som `AI homework grading` truoc khi toan bo he thong role/auth/backend duoc khoa.
+- Input uu tien dau tien la anh bai tap hoc sinh nop.
+- De bai va rubric khong phai do hoc sinh nhap; giao vien se tao bai giao truoc.
+- Gemini la nha cung cap AI dau tien duoc uu tien tich hop vi ket qua thu nghiem ban dau tot.
+- Tuy nhien, kien truc phai `provider-agnostic`, khong de workflow lop nghiep vu phu thuoc truc tiep vao Gemini.
+- He thong can tach rieng:
+  - `homework domain`
+  - `submission storage`
+  - `AI provider adapter`
+  - `grading result schema`
+  - `future teacher override`
+- Ket qua AI duoc xem la ket qua he thong sinh ra co kiem soat, khong phai su that bat bien.
+- Can luu thong tin phuc vu truy vet va thay the provider sau nay:
+  - model name
+  - prompt version
+  - confidence
+  - recognized content
+  - review flag
+- Assignment can later include image or PDF attachments as the official prompt material.
+- `LaTeX (ngon ngu danh may toan hoc)` conversion is not a current phase-1 priority.
+- Student submission policy currently locked:
+  - one normal submission only
+  - late submission allowed but flagged
+  - immediate AI result if no review flag
+  - complaint path required for grading disputes
+  - wrong submission recovery uses complaint plus one teacher unlock
+- MIU feedback tone is now `MIU` + `ban`.
+- Initial rubric locked:
+  - `Phan tich va huong giai`
+  - `Ky nang tinh toan`
+  - `Trinh bay`
+- Teacher must also store the official answer key so the student can compare after grading.
+- Gemini output rules now locked:
+  - structured output only
+  - total score, praise, mistakes, improvement suggestions
+  - respectful and encouraging MIU tone
+  - confidence + review signaling when uncertain
+## 10) Cac file can doc dau phien
 1. `PROJECT_OVERVIEW.md`
 2. `DECISIONS_LOG.md`
 3. `MODULE_STATUS.md`

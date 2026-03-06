@@ -33,3 +33,28 @@ Impact:
 Control:
 - define module order and role model before large implementation
 
+## 5. Risk: AI provider lock-in creates migration pain later
+Impact:
+- homework grading workflow becomes tightly coupled to Gemini-specific APIs or response formats
+
+Control:
+- isolate AI calls behind a provider adapter
+- normalize grading results into app-owned schemas
+- store provider metadata without letting provider payload shape leak into core domain logic
+
+## 6. Risk: image-based AI grading is treated as fully reliable
+Impact:
+- students may receive incorrect scores or feedback because of handwriting and image quality issues
+
+Control:
+- store confidence and review flags
+- preserve recognized content and model metadata for traceability
+- leave room for human override in the domain model
+
+## 7. Risk: small collaboration rules drift between sessions
+Impact:
+- future replies may ignore language and explanation conventions even when they are already documented
+
+Control:
+- keep `COLLABORATION_CONVENTIONS.md` explicit and mandatory rather than soft or optional
+- treat collaboration protocol drift as a real memory failure, not just a wording issue
