@@ -32,6 +32,8 @@ Deliverables:
 - API/data flow assumptions
 - state/lifecycle assumptions
 - settings/policy boundary for changeable business rules
+- teacher review record and final-result flow for Homework AI
+- remove manual reviewer identity once Authentication exists
 
 Status:
 - next priority for the homework grading slice

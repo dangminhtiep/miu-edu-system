@@ -54,6 +54,8 @@ Purpose: concise current handoff note for the next working session
 - teacher-facing workspace now shows a simple AI processing status panel for queued/processing/failed jobs
 - Homework AI workspace text/labels have been normalized back to readable Vietnamese so the screen is easier to review and extend
 - teacher-facing workspace now also shows a concrete AI job list with status, provider, timing, and error visibility
+- teacher review flow is now locked to preserve AI original output while storing separate review records for teacher-finalized decisions
+- teacher review validation and audit fields are now stronger so later SLA/KPI analysis can rely on the review records more safely
 - Gemini provider scaffold and mock provider fallback
 
 ## 4. What Is Not Yet Locked
@@ -84,6 +86,13 @@ Purpose: concise current handoff note for the next working session
 - Another implementation step is now done: the Homework AI workspace now surfaces basic job-status visibility so operational state is less hidden from the teacher view.
 - Another implementation step is now done: the Homework AI workspace file has been rewritten in clean UTF-8 Vietnamese text while preserving the current workflow structure.
 - Another implementation step is now done: teachers can now inspect individual AI grading jobs instead of relying only on summary counters.
+- Another implementation step is now done: teachers can now approve AI output or create a manual final grading record without overwriting the original AI result.
+- Another implementation step is now done: teacher review records now preserve source, version, score delta, latency, and reviewer identity source for later reporting.
+- Another implementation step is now done: teacher review UI now keeps homework images visible beside the review form, pre-fills edit fields from AI output, and offers quick teacher-note tags.
+- Another implementation direction is now locked: responsive layout must be handled with CSS media queries in `globals.css`, with mobile-safe stacked layouts for Homework AI review screens.
+- Another implementation step is now done: a temporary Homework AI seed route can create mock review data so the teacher-review UI can be manually tested without waiting for real AI submissions.
+- Another implementation step is now done: fixed two-column review sub-layouts have started moving into responsive CSS classes so the mobile review screen does not overflow horizontally.
+- Manual mobile testing found one more UX issue still pending: on very narrow screens, the right-side review content can become too narrow and hard to read even after overflow control. The next UI pass should widen or restack that content more aggressively on small mobile widths.
 - For local development, `Webpack` is currently safer than `Turbopack` in this environment because `Turbopack panic` errors were observed during testing.
 - The current prototype UI does not yet reflect the corrected business flow where teachers define assignments first and students only select assigned homework to submit.
 - Additional temporary product rules are now locked:
@@ -98,7 +107,8 @@ Purpose: concise current handoff note for the next working session
 - The prototype UI and APIs have now been refactored to reflect the teacher-first assignment flow and student complaint/unlock flow.
 - Local lint passed after refactor; full local runtime verification still depends on opening the app manually in the local environment.
 - Recommended next priority if Homework AI continues:
-  - teacher review action for `needs_review`
+  - connect review identity to real auth/session once Authentication is chosen
+  - decide whether review analytics should stay in homework module or move into a reporting layer later
   - then choose between real persistence strategy or broader UI/navigation cleanup based on immediate product need
 ## 6. Required Reading Next Session
 1. `PROJECT_OVERVIEW.md`

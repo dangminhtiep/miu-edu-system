@@ -4,12 +4,19 @@ import type {
   RubricCriterion,
 } from "@/lib/homework-ai/types";
 
-export function sortByDateDesc<T extends { createdAt?: string; submittedAt?: string }>(
+export function sortByDateDesc<
+  T extends {
+    createdAt?: string;
+    submittedAt?: string;
+    updatedAt?: string;
+    queuedAt?: string;
+  },
+>(
   items: T[],
 ) {
   return [...items].sort((a, b) => {
-    const left = a.createdAt ?? a.submittedAt ?? "";
-    const right = b.createdAt ?? b.submittedAt ?? "";
+    const left = a.updatedAt ?? a.createdAt ?? a.submittedAt ?? a.queuedAt ?? "";
+    const right = b.updatedAt ?? b.createdAt ?? b.submittedAt ?? b.queuedAt ?? "";
     return left < right ? 1 : -1;
   });
 }

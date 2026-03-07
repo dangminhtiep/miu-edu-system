@@ -5,6 +5,7 @@ import type {
   HomeworkComplaintRecord,
   HomeworkDatabase,
   HomeworkGradingJobRecord,
+  HomeworkReviewRecord,
   HomeworkSubmissionRecord,
   HomeworkUnlockRecord,
 } from "@/lib/homework-ai/types";
@@ -170,6 +171,22 @@ class FileHomeworkAiRepository implements HomeworkAiRepository {
   async findUnlockByComplaintId(complaintId: string) {
     const database = await this.readDatabase();
     return database.unlocks.find((item) => item.complaintId === complaintId);
+  }
+
+  async createReview(review: HomeworkReviewRecord): Promise<void> {
+    const database = await this.readDatabase();
+    database.reviews.unshift(review);
+    await this.writeDatabase(database);
+  }
+
+  async listReviews() {
+    const database = await this.readDatabase();
+    return database.reviews;
+  }
+
+  async findReviewsBySubmissionId(submissionId: string) {
+    const database = await this.readDatabase();
+    return database.reviews.filter((item) => item.submissionId === submissionId);
   }
 }
 

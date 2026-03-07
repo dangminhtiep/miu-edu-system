@@ -9,12 +9,14 @@ export async function getHomeworkAiOverview() {
   const submissions = await repository.listSubmissions();
   const complaints = await repository.listComplaints();
   const gradingJobs = await repository.listGradingJobs();
+  const reviews = await repository.listReviews();
 
   return {
     assignments: sortByDateDesc(assignments),
     submissions: sortByDateDesc(submissions),
     gradingJobs: sortByDateDesc(gradingJobs),
     complaints: sortByDateDesc(complaints),
+    reviews: sortByDateDesc(reviews),
     metrics: {
       assignments: assignments.length,
       submissions: submissions.length,

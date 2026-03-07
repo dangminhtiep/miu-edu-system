@@ -15,6 +15,12 @@ export type GradingJobStatus =
 
 export type ComplaintStatus = "open" | "unlocked" | "resolved";
 export type HomeworkComplaintCategory = "grading_issue" | "wrong_submission";
+export type HomeworkReviewDecision = "approved_ai" | "edited_result";
+export type HomeworkReviewSource =
+  | "needs_review"
+  | "grading_complaint"
+  | "manual_teacher_review";
+export type ReviewerIdentitySource = "manual_name" | "auth_session";
 
 export type ConfidenceLevel = "high" | "medium" | "low";
 
@@ -125,6 +131,27 @@ export interface HomeworkSubmissionRecord {
   errorMessage?: string;
 }
 
+export interface HomeworkReviewRecord {
+  id: string;
+  submissionId: string;
+  assignmentId: string;
+  complaintId?: string;
+  teacherName: string;
+  reviewerIdentitySource: ReviewerIdentitySource;
+  decision: HomeworkReviewDecision;
+  reviewSource: HomeworkReviewSource;
+  reviewVersion: number;
+  teacherNote: string;
+  aiResultSnapshot: NormalizedGradingResult;
+  finalResult: NormalizedGradingResult;
+  changedScore: boolean;
+  changedFeedback: boolean;
+  totalScoreDelta: number;
+  reviewLatencySeconds: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface HomeworkComplaintRecord {
   id: string;
   assignmentId: string;
@@ -154,4 +181,5 @@ export interface HomeworkDatabase {
   gradingJobs: HomeworkGradingJobRecord[];
   complaints: HomeworkComplaintRecord[];
   unlocks: HomeworkUnlockRecord[];
+  reviews: HomeworkReviewRecord[];
 }

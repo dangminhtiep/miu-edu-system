@@ -72,6 +72,12 @@ Mo rong tu master doc:
   - `current-phase focus (trong tam giai doan hien tai)`
 - Uu tien truoc phai bam vao lat cat `AI homework grading` va cac nen tang that su can cho no.
 - Khi tu van, can giai thich ro theo ngon ngu de hieu cho nguoi moi, khong mac dinh rang nguoi dung da biet thuat ngu.
+- Trong qua trinh lam viec, phai lien tuc doi chieu voi cac diem mo ho trong `OPEN_QUESTIONS.md`, cac quyet dinh da khoa, va giai doan hien tai.
+- Neu mot buoc trien khai co nguy co lech ngu canh hoac vo tinh khoa sai rule nghiep vu, phai tam dung va hoi nguoi dung de chot truoc khi viet tiep code.
+- Khi dua ra nhieu phuong an de nguoi dung chon, phai giai thich ro moi phuong an la gi, vi sao can chon, diem manh, diem yeu, va vi sao de xuat phuong an duoc khuyen nghi.
+- Khi gioi thieu ten ham, bien, file, folder hoac cau truc code bang tieng Anh, can mo ngoac giai thich nghia tieng Viet de nguoi dung theo kip.
+- Moi giai phap tam thoi hoac workaround co anh huong den kien truc sau nay deu phai duoc ghi lai trong docs de khong bi quen.
+- Responsive layout cho mobile/tablet/desktop phai duoc xem la yeu cau bat buoc cua MIU Web, khong phai polish tuy chon.
 
 ## 6) Uu tien gan
 - khoa bo nho ngoai cho repo nay
@@ -144,6 +150,20 @@ Trong do:
   - total score, praise, mistakes, improvement suggestions
   - respectful and encouraging MIU tone
   - confidence + review signaling when uncertain
+- Teacher review workflow now locked:
+  - teacher can approve AI result or edit score/feedback manually
+  - AI original result must remain preserved
+  - each teacher review must create a separate `review record (ban ghi ra soat)`
+  - student sees the latest teacher-finalized result when a teacher review exists
+- Teacher review validation and audit direction now locked:
+  - `edited_result` bat buoc co `teacherNote`
+  - chi duoc luu `edited_result` khi it nhat 1 tieu chi da bi doi diem hoac doi nhan xet so voi AI goc
+  - review phai luu them cac truong audit de tinh SLA va ti le giao vien sua AI
+  - neu review gan voi complaint, SLA tinh tu luc tao complaint; neu khong, SLA tinh tu luc nop bai
+- Responsive UI direction now locked:
+  - mobile stack doc
+  - tablet/desktop giu split-view khi phu hop
+  - responsive layout rules di qua `globals.css` bang CSS media queries thay vi logic do man hinh bang JavaScript
 ## 10) Cac file can doc dau phien
 1. `PROJECT_OVERVIEW.md`
 2. `DECISIONS_LOG.md`

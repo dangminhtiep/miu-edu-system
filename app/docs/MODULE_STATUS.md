@@ -90,6 +90,16 @@ Current state:
 - teacher-facing Homework AI workspace now exposes a basic AI job-status panel
 - Homework AI workspace UI copy has been normalized back to readable Vietnamese UTF-8 text
 - teacher-facing Homework AI workspace now exposes a concrete AI job list with per-job status and timing
+- teacher review actions now exist for approving AI results or manually editing final scores/feedback
+- teacher review history is now stored as separate review records instead of overwriting AI original output
+- student-facing result view now prefers the latest teacher-finalized result when a review exists
+- teacher review records now include audit-ready fields for review source, version, score delta, latency, and identity source
+- teacher review validation now blocks weak edited results unless a teacher note exists and at least one rubric criterion was truly changed
+- teacher review UI now uses split-view so the student homework image stays visible beside the review form
+- edited review forms now pre-fill from AI output and expose quick teacher-note tags for common correction reasons
+- Homework AI workspace is now being normalized toward responsive behavior for mobile, tablet, and desktop instead of assuming desktop-only split layout
+- teacher workspace now has a temporary mock-data seed action so manual UI testing can create a sample assignment, submission-with-result, and grading complaint on demand
+- mobile horizontal overflow in Homework AI review is now being controlled by responsive CSS classes instead of inline fixed two-column layout rules
 - provider adapter structure now exists
 - Gemini provider scaffold now follows the current MIU feedback contract draft
 - mock provider fallback now exists
@@ -127,6 +137,7 @@ Not implemented yet:
 - real database-backed persistence
 - background grading job queue
 - auth and role protection
-- teacher review resolution flow beyond the current unlock action
+- richer teacher review audit/reporting and stricter review validation policies
 - production storage strategy
 - stricter provider response validation rules and review thresholds
+- lifecycle rule for removing temporary seed/testing helpers before production hardening

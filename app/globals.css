@@ -24,3 +24,94 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.homework-shell-two-col {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+}
+
+.homework-workspace {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.homework-workspace *,
+.homework-workspace *::before,
+.homework-workspace *::after {
+  box-sizing: border-box;
+}
+
+.homework-workspace :where(div, section, article, form, label, input, textarea, button, a) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.homework-workspace :where(div, p, span, strong, h1, h2, h3, label, a, button) {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.homework-teacher-columns {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.homework-two-col {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.homework-criteria-edit-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+
+.homework-review-card {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+}
+
+.homework-review-image-sticky {
+  position: sticky;
+  top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .homework-shell-two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homework-review-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homework-review-image-sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .homework-two-col,
+  .homework-criteria-edit-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homework-review-image-panel {
+    max-height: 40vh;
+    overflow: auto;
+  }
+
+  .homework-review-form-panel {
+    order: 2;
+  }
+
+  .homework-review-image-panel-wrap {
+    order: 1;
+  }
+}

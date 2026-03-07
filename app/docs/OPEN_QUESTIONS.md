@@ -45,6 +45,12 @@ Purpose: store unresolved product and architecture questions explicitly
 - admin-created accounts?
 - password login?
 - magic links?
+- When Authentication is integrated, manual `teacherName` entry in Homework AI review must be replaced by a trusted user/session identity from the auth system so review records have secure reviewer identity.
+
+## 6B. Temporary Reviewer Identity Debt
+- Current Homework AI review still uses manual reviewer-name input as a temporary bridge.
+- When Authentication is integrated, this must be replaced by `user session ID` and trusted user profile data from the auth layer.
+- Review records should then switch reviewer identity source from temporary manual input to auth-backed identity.
 
 ## 6A. AI Homework Safety and Review
 - At what confidence threshold should a submission be flagged for human review?
@@ -108,6 +114,7 @@ Purpose: store unresolved product and architecture questions explicitly
   - unreadable image?
   - submitted wrong file?
 
+
 ## 8. HQ vs Branch Boundary
 - Which workflows belong to HQ only?
 - Which workflows belong to branch managers?
@@ -126,3 +133,16 @@ Purpose: store unresolved product and architecture questions explicitly
   - file size/page limits?
   - provider selection?
   - complaint categories?
+
+## 10. Temporary Testing Helpers
+- The temporary `seed mock data` route for Homework AI is useful for manual UI testing now.
+- Before production hardening, decide:
+  - should this route be removed entirely?
+  - or hidden behind dev-only / admin-only protection?
+
+## 11. Mobile Review UX
+- Manual testing on narrow mobile widths found that the right-side teacher review content can still become too narrow to read comfortably.
+- In the next responsive UI pass, decide whether:
+  - the review form should fully stack below the AI summary on small phones
+  - the AI summary should collapse into tabs/accordion
+  - the teacher review card should switch to a stronger single-column layout earlier

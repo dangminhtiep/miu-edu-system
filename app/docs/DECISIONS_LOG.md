@@ -332,3 +332,79 @@ Consequence:
 - prefer changes that directly strengthen the current Homework AI slice while also reducing the next likely architectural risk
 - postpone deeper infrastructure work when it does not materially improve the current slice
 - important technical recommendations should be explained in plain Vietnamese with concise rationale and postponed alternatives called out explicitly
+
+## 2026-03-07
+### Decision: implementation must continuously check for context drift and stop for clarification when ambiguity becomes material
+Reason:
+- the repo is still in an architecture-lock phase, so seemingly small implementation choices can accidentally freeze the wrong business rule
+- continuous alignment is cheaper than rewriting domain code after an implicit assumption turns out to be wrong
+
+Consequence:
+- before or during implementation, compare the current task against locked decisions, open questions, and current-phase priorities
+- if a missing product rule or workflow detail could materially change the code shape, pause and ask the user to lock that point before continuing
+- do not silently resolve meaningful ambiguity inside code just to keep momentum
+
+## 2026-03-07
+### Decision: Homework AI teacher review uses separate review records and teacher-finalized student output
+Reason:
+- MIU needs an audit trail that distinguishes AI output from human review
+- later KPI and operational analytics need to measure teacher review workload
+- keeping AI output and teacher decisions separate reduces future R&D ambiguity when tuning prompts or review policy
+
+Consequence:
+- teachers can approve AI output as-is or edit score/feedback manually
+- each teacher review action must create a separate `review record`
+- AI original grading result must remain preserved as the original system output
+- when a teacher review exists, the student-facing result must use the latest teacher-finalized result
+
+## 2026-03-07
+### Decision: when presenting material implementation choices, the AI must explain options, tradeoffs, and recommendation explicitly
+Reason:
+- under-explained choices create hidden assumptions and make it harder for the user to lock the right product decision
+- this repo is still in a phase where small choices can shape future architecture cost
+
+Consequence:
+- future option prompts must explain what each option means, why it matters, strengths, weaknesses, and why one option is recommended
+
+## 2026-03-07
+### Decision: Homework AI teacher review must use validation level 2 and balanced audit fields
+Reason:
+- teacher review data needs to be trustworthy enough for later KPI and audit analysis
+- MIU needs both operational speed metrics and visibility into how often teachers correct AI output
+
+Consequence:
+- `edited_result` requires a non-empty `teacherNote`
+- `edited_result` can only be saved if at least one rubric criterion score or criterion comment differs from the original AI result
+- review records must store:
+  - `reviewSource`
+  - `reviewVersion`
+  - `aiResultSnapshot`
+  - `changedScore`
+  - `changedFeedback`
+  - `totalScoreDelta`
+  - `reviewLatencySeconds`
+  - `reviewerIdentitySource`
+- SLA timing rule is locked:
+  - if a review resolves a complaint, SLA starts from complaint creation time
+  - otherwise, SLA starts from submission time
+
+## 2026-03-07
+### Decision: Homework AI review UI must reduce teacher cognitive load with split-view, pre-fill, and quick tags
+Reason:
+- teacher review is a repetitive operational workflow, so unnecessary scrolling and retyping would slow adoption and lower review quality
+
+Consequence:
+- review UI should keep student homework images visible beside the review form
+- edit mode should pre-fill the form from the original AI result
+- quick teacher-note tags should exist for common correction reasons
+
+## 2026-03-07
+### Decision: responsive layout for MIU Web prototype screens should use CSS media queries in globals.css, while visual styles stay inline during the prototype phase
+Reason:
+- screen-size layout switching is a CSS responsibility and should not rely on client-side viewport logic that can introduce hydration mismatch or unnecessary complexity
+- Homework AI now has a split-view teacher workflow that must degrade safely to mobile without breaking review usability
+
+Consequence:
+- responsive layout rules should move into narrow, feature-scoped classes in `app/globals.css`
+- visual styling such as colors, spacing tokens, borders, and panel appearance can remain inline while the screen is still a prototype
+- mobile review layout must stack vertically, keep the image viewer above the form, and cap image-panel height so the form is not pushed too far down

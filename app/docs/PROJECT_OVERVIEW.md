@@ -147,6 +147,7 @@ To avoid scope overload, MIU Web should be viewed as 4 layers:
   - AI provider adapter
   - grading result normalization
   - future human review / override
+  - teacher review records that preserve final human decisions separately from AI output
 ## 10. Source of Truth for Future Sessions
 Read these first in order:
 1. `app/docs/PROJECT_OVERVIEW.md`

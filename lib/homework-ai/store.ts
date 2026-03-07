@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import type { HomeworkDatabase } from "@/lib/homework-ai/types";
+import type { HomeworkDatabase, HomeworkReviewRecord } from "@/lib/homework-ai/types";
 
 const DATA_DIR = path.join(process.cwd(), "data", "homework-ai");
 const DB_PATH = path.join(DATA_DIR, "database.json");
@@ -13,6 +13,7 @@ const EMPTY_DB: HomeworkDatabase = {
   gradingJobs: [],
   complaints: [],
   unlocks: [],
+  reviews: [],
 };
 
 async function ensureStore() {
@@ -27,6 +28,21 @@ function normalizeDatabase(data: Partial<HomeworkDatabase> | undefined): Homewor
     gradingJobs: data?.gradingJobs ?? [],
     complaints: data?.complaints ?? [],
     unlocks: data?.unlocks ?? [],
+    reviews: (data?.reviews ?? []).map(normalizeReviewRecord),
+  };
+}
+
+function normalizeReviewRecord(review: HomeworkReviewRecord): HomeworkReviewRecord {
+  return {
+    ...review,
+    reviewerIdentitySource: review.reviewerIdentitySource ?? "manual_name",
+    reviewSource: review.reviewSource ?? "manual_teacher_review",
+    reviewVersion: review.reviewVersion ?? 1,
+    aiResultSnapshot: review.aiResultSnapshot ?? review.finalResult,
+    changedScore: review.changedScore ?? false,
+    changedFeedback: review.changedFeedback ?? false,
+    totalScoreDelta: review.totalScoreDelta ?? 0,
+    reviewLatencySeconds: review.reviewLatencySeconds ?? 0,
   };
 }
 

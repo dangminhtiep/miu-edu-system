@@ -30,6 +30,7 @@ Status: draft foundation architecture
 For the first homework grading slice, the intended separation is:
 - presentation layer for assignment, submission, and results
 - homework domain layer for assignments, submissions, grading jobs, and grading results
+- review-record layer for teacher-finalized grading decisions
 - storage layer for submission images
 - AI provider adapter layer
 - normalization layer that converts provider output into app-owned grading schemas
@@ -62,7 +63,8 @@ The system should be designed around 3 layers of change:
   - grading jobs
   - grading results
   - complaints
-  - review actions
+- review actions
+  - review records
 - `configuration/policy layer (lop cau hinh/chinh sach)`
   - submission limits
   - late handling
@@ -113,7 +115,8 @@ It means current design should avoid blocking that future path.
   - grading status
   - normalized result schema
   - review flags
-  - future teacher override
+- future teacher override
+  - teacher review record separate from AI original
   - provider result normalization before persistence
 
 Recommended homework slice split:

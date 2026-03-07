@@ -3,6 +3,7 @@ import type {
   HomeworkComplaintRecord,
   HomeworkDatabase,
   HomeworkGradingJobRecord,
+  HomeworkReviewRecord,
   HomeworkSubmissionRecord,
   HomeworkUnlockRecord,
 } from "@/lib/homework-ai/types";
@@ -45,4 +46,9 @@ export interface HomeworkAiRepository {
   findUnlockByComplaintId(
     complaintId: string,
   ): Promise<HomeworkUnlockRecord | undefined>;
+  createReview(review: HomeworkReviewRecord): Promise<void>;
+  listReviews(): Promise<HomeworkReviewRecord[]>;
+  findReviewsBySubmissionId(
+    submissionId: string,
+  ): Promise<HomeworkReviewRecord[]>;
 }
